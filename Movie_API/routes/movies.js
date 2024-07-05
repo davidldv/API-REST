@@ -21,6 +21,17 @@ moviesRouter.get("/", async (req, res) => {
 
     // Filtrar por genero de id
     if (!genres) return res.send(response.data.results)
+
+    const genreList = await TMDB_API.get("/genre/movie/list", {
+        params: {
+            language: language
+        }
+    })
+
+    const genre = genreList.data.genres.find((genre) => {
+        return genre.name === genres
+    }).id
+        
     
     const dataFilter = response.data.results.filter((movie) => {
         return movie.genre_ids.includes(parseInt(genres))

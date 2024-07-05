@@ -9,20 +9,19 @@ peopleRouter.get("/", async (req, res) => {
     const language = req.query.language || "en-US"
     const query = req.query.query
 
-    const response = await TMDB_API.get("/search/person", {
+    try {
+      const response = await TMDB_API.get("/search/person", {
         params: {
-            page: page,
-            include_adult: include_adult,
-            language: language,
-            query: query
-        }
-    })
-
-    const dataFilter = response.data.results.filter((tv) => {
-        return tv.genre_ids.includes(parseInt(genres))
-    })  
-
-    return res.send(dataFilter)
+          query: query,
+          language: language,
+          page: page,
+          include_adult: include_adult,
+        },
+      });
+      return res.send(response.data.results);
+    } catch (error) {
+      return res.status(404).send();
+    }
 })
 
 peopleRouter.get("/:id", async (req, res) => {

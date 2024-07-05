@@ -1,5 +1,5 @@
 {
-  "name": "express-js",
+  "name": "movie_api",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
   },

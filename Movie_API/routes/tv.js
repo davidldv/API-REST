@@ -20,6 +20,20 @@ tvRouter.get("/", async (req, res) => {
         }
     })
 
+    if (!genres) {
+      return res.send(response.data.results)
+    }
+  
+    const genreList = await TMDB_API.get("/genre/tv/list", {
+      params: {
+        language: language
+      }
+    })
+  
+    const genre = genreList.data.genres.find((genre) => {
+      return genre.name === genres
+    }).id
+
     const dataFilter = response.data.results.filter((tv) => {
         return tv.genre_ids.includes(parseInt(genres))
     })  
